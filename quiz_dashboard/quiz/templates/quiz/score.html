@@ -1,0 +1,19 @@
+{% comment %} <h1>Your Score</h1>
+<p>You answered {{ score }} out of {{ total }} questions correctly!</p>
+<a href="{% url 'quiz:quiz_types' %}">Back to Quiz Types</a> {% endcomment %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Score</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1> Scores: </h1>
+    <p>You answered {{ score }} out of {{ total }} questions correctly!</p>
+    {% comment %} <a href="{% url 'quiz:quiz_types' %}">Back to Quiz Types</a> {% endcomment %}
+    <a href="{% url 'quiz:quiz_types' %}" class="btn">Back to Quiz Types</a>
+
+</body>
+</html>

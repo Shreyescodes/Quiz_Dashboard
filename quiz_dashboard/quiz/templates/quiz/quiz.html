@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ quiz_type }} Quiz</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>{{ quiz_type }} Quiz</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% for question in questions %}
+        <div>
+            <h3>{{ question.Questions }}</h3>
+            <ul>
+                <li><input type="radio" name="{{ question.Questions }}" value="{{ question.Option1 }}"> A.  {{ question.Option1 }}</li>
+                <li><input type="radio" name="{{ question.Questions }}" value="{{ question.Option2 }}"> B.  {{ question.Option2 }}</li>
+                <li><input type="radio" name="{{ question.Questions }}" value="{{ question.Option3 }}"> C.  {{ question.Option3 }}</li>
+                <li><input type="radio" name="{{ question.Questions }}" value="{{ question.Option4 }}"> D.  {{ question.Option4 }}</li>
+            </ul>
+        </div>
+        {% endfor %}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

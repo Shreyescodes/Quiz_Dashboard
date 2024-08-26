@@ -1,0 +1,16 @@
+Question,Option1,Option2,Option3,Option4,Correct Answer
+Which type of Programming does Python support?,object-oriented programming,structured programming,functional programming,all of the mentioned,4
+Is Python code compiled or interpreted?,Python code is both compiled and interpreter,Python code is neither compiled nor interpreted,Python code is only compiled,Python code is only interpreted,1
+What is the order of precedence in python?,"Exponential, Parentheses, Multiplication, Division, Addition, Subtraction","Exponential, Parentheses, Division, Multiplication, Addition, Subtraction","Parentheses, Exponential, Multiplication, Division, Subtraction, Addition","Parentheses, Exponential, Multiplication, Division, Addition, Subtraction",4
+Which of these is the definition for packages in Python?, A set of main modules,A folder of python modules,A number of files containing Python definitions and statements,A set of programs making use of Python modules,2
+What are the two main types of functions in Python?,System function,Custom function,Built-in function & User defined function,User function,3
+What is the size of an int in Java?,8 bits,16 bits,32 bits,64 bits,4
+Which of the following is not a primitive data type in Java?,int,float,String,char,3
+What is the default value of a boolean variable in Java?,TRUE,FALSE,null,0,2
+Which of these keywords is used to define a class in Java?,class,struct,interface,package,1
+How do you create an object of the class Dog in Java?,Dog d = new Dog();,Dog d = Dog();,Dog d = new Dog;,Dog d = Dog.new();,1
+Which method is used to add a new item to the end of an array and return the new length of the array?,push(),concat(),slice(),splice(),1
+Which of the following is the correct way to declare a variable in JavaScript?,variable x = 5;,var x = 5;,int x = 5;,x = 5;,2
+"What is the output of the following code? : console.log(typeof ""Hello"");",string,text,char,object,1
+Which of the following is true about JavaScript closures?,They allow a function to access variables from another function.,They create a new variable scope inside a function.,They are used to automatically bind this to a function.,They are used to return the arguments passed to a function.,1
+What is the result of typeof null in JavaScript?,"""null""","""object""","""undefined""","""string""",2
