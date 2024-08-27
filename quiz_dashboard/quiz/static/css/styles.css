@@ -189,3 +189,27 @@ li a:hover {
         font-size: 14px;
     }
 }
+
+.question-navigation {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px;
+    background-color: #f4f4f4;
+    margin-bottom: 20px;
+    }
+
+.question-navigation div {
+    flex: 0 0 auto;
+    padding: 10px 15px;
+    margin-right: 10px;
+    background-color: #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    }
+
+.question-navigation div.active {
+    background-color: #4caf50; /* Highlight color for the current question */
+    color: white;
+    }
