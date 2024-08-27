@@ -32,59 +32,67 @@ def quiz_types(request):
 
 # def display_quiz(request, t_id, quiz_type):
 #     print("Rendering quiz.html")
+#     # Filter the questions based on T_ID and Type
 #     questions = [row for row in quiz_data if row['T_ID'] == t_id and row['Type'] == quiz_type]
 
 #     if request.method == 'POST':
 #         score = 0
-#         for question in questions:
-#             selected_answer = request.POST.get(question['Questions']).strip() if request.POST.get(question['Questions']) else None
-#             correct_answer = question['Correct answer'].strip()
-            
-#             print(f"Question: {question['Questions']}, Selected Answer: {selected_answer}, Correct Answer: {correct_answer}")  # Debugging print statement
+#         total_questions = len(questions)
 
-#             # Compare selected answer with correct answer
-#             if selected_answer and selected_answer == correct_answer:
-#                 score += 1
+#         for question in questions:
+#             # Get the user's selected answer for each question
+#             selected_answer = request.POST.get(question['Questions'])
+#             correct_answer = question['Correct answer']
+
+#             # Print debugging information
+#             print(f"Question: {question['Questions']}")
+#             print(f"Selected Answer: {selected_answer}")
+#             print(f"Correct Answer: {correct_answer}")
+
+#             # Handle if no answer was selected (skip unanswered questions)
+#             if selected_answer is not None:
+#                 # Compare selected answer with correct answer
+#                 if selected_answer.strip().lower() == correct_answer.strip().lower():
+#                     score += 1
+
+#         # Print the final score for debugging
+#         print(f"Final Score: {score}/{total_questions}")
 
 #         # Render the score template after quiz completion
-#         return render(request, 'quiz/score.html', {'score': score, 'total': len(questions)})
-    
+#         return render(request, 'quiz/score.html', {'score': score, 'total': total_questions})
+
 #     # Render the quiz template
 #     return render(request, 'quiz/quiz.html', {'questions': questions, 'quiz_type': quiz_type})
 
 def display_quiz(request, t_id, quiz_type):
-    print("Rendering quiz.html")
-    # Filter the questions based on T_ID and Type
     questions = [row for row in quiz_data if row['T_ID'] == t_id and row['Type'] == quiz_type]
 
     if request.method == 'POST':
         score = 0
-        total_questions = len(questions)
+        incorrect_questions = []
 
         for question in questions:
-            # Get the user's selected answer for each question
             selected_answer = request.POST.get(question['Questions'])
-            correct_answer = question['Correct answer']
+            if selected_answer == question['Correct answer']:
+                score += 1
+            else:
+                incorrect_questions.append({
+                    'question': question['Questions'],
+                    'selected': selected_answer,
+                    'correct': question['Correct answer']
+                })
 
-            # Print debugging information
-            print(f"Question: {question['Questions']}")
-            print(f"Selected Answer: {selected_answer}")
-            print(f"Correct Answer: {correct_answer}")
-
-            # Handle if no answer was selected (skip unanswered questions)
-            if selected_answer is not None:
-                # Compare selected answer with correct answer
-                if selected_answer.strip().lower() == correct_answer.strip().lower():
-                    score += 1
-
-        # Print the final score for debugging
-        print(f"Final Score: {score}/{total_questions}")
-
-        # Render the score template after quiz completion
+        return render(request, 'quiz/score.html', {
+            'score': score,
+            'total': len(questions),
+            'incorrect_questions': incorrect_questions
+        })
+        
         return render(request, 'quiz/score.html', {'score': score, 'total': total_questions})
 
-    # Render the quiz template
     return render(request, 'quiz/quiz.html', {'questions': questions, 'quiz_type': quiz_type})
+
+
 
 def quiz_detail(request, question_type):
     # Retrieve all questions for the selected quiz type
@@ -99,7 +107,3 @@ def quiz_detail(request, question_type):
 #         # Add other types as needed
 #     ]
 #     return render(request, 'quiz/quiz_types.html', {'types': types})
-
-
-
-
