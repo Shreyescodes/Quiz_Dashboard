@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ quiz_type }} Quiz</title>
+    <title>{{ question.Type }} Quiz</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <h1>{{ quiz_type }} Quiz</h1>
+    <h1>{{ question.Type }} Quiz</h1>
     <form method="post">
         {% csrf_token %}
-        {% for question in questions %}
         <div>
             <h3>{{ question.Questions }}</h3>
             <ul>
@@ -19,8 +18,11 @@
                 <li><input type="radio" name="{{ question.Questions }}" value="{{ question.Option4 }}"> D.  {{ question.Option4 }}</li>
             </ul>
         </div>
-        {% endfor %}
-        <button type="submit">Submit</button>
+        {% if is_last_question %}
+            <button type="submit">Submit</button>
+        {% else %}
+            <button type="submit">Next</button>
+        {% endif %}
     </form>
 </body>
 </html>

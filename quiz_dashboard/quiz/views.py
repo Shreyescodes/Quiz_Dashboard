@@ -15,54 +15,62 @@ def upload_file(request):
             decoded_file = file.read().decode('utf-8').splitlines()
             reader = csv.DictReader(decoded_file)
             quiz_data = list(reader)
-            
-            # Debugging print statement
-            print("Loaded quiz data:", quiz_data)
-
             return redirect('quiz:quiz_types')
     else:
         form = UploadFileForm()
     return render(request, 'quiz/upload.html', {'form': form})
 
 def quiz_types(request):
-    types = set((row.get('T_ID').strip(), row.get('Type').strip()) for row in quiz_data)
-    print("Available quiz types:", types)  # Debugging statement
+    types = set((row.get('T_ID'), row.get('Type')) for row in quiz_data)
     return render(request, 'quiz/quiz_types.html', {'types': types})
 
 def display_quiz(request, t_id, quiz_type):
-    print(f"Rendering quiz.html for T_ID: {t_id}, Type: {quiz_type}")
+    questions = [row for row in quiz_data if row['T_ID'] == t_id and row['Type'] == quiz_type]
     
-    # Filter questions based on T_ID and quiz type
-    questions = [row for row in quiz_data if row['T_ID'].strip() == str(t_id).strip() and row['Type'].strip() == quiz_type.strip()]
-    
-    print(f"Filtered Questions for T_ID: {t_id}, Type: {quiz_type}: {questions}")  # Debugging statement
+    # Track the current question index
+    question_index = request.session.get('question_index', 0)
+
+    # Check if it's the last question
+    is_last_question = (question_index == len(questions) - 1)
 
     if request.method == 'POST':
-        score = 0
-        total_credits = 0
-        earned_credits = 0
-        incorrect_questions = []
+        # Handle answer submission
+        selected_answer = request.POST.get(questions[question_index]['Questions'])
+        if selected_answer == questions[question_index]['Correct answer']:
+            score = request.session.get('score', 0)
+            score += 1
+            request.session['score'] = score
 
-        for question in questions:
-            total_credits += int(question.get('Credits', 0))  # Total credits for all questions
-            selected_answer = request.POST.get(question['Questions'])
-            if selected_answer == question['Correct answer']:
-                score += 1
-                earned_credits += int(question.get('Credits', 0))  # Credits for correctly answered questions
-            else:
-                incorrect_questions.append((question['Questions'], question['Correct answer']))
+        # If not the last question, increment the question index
+        if not is_last_question:
+            question_index += 1
+            request.session['question_index'] = question_index
+            return redirect('quiz:display_quiz', t_id=t_id, quiz_type=quiz_type)
 
-        # Calculate the percentage of credits earned
+        # If last question, show the score
+        score = request.session.get('score', 0)
+        total_credits = sum(int(question.get('Credits', 0)) for question in questions)
+        earned_credits = score * int(questions[0].get('Credits', 0))  # Credits per correct answer
         percentage = (earned_credits / total_credits) * 100 if total_credits > 0 else 0
+
+        # Clear the session variables
+        request.session['score'] = 0
+        request.session['question_index'] = 0
 
         return render(request, 'quiz/score.html', {
             'score': score,
             'total': len(questions),
             'percentage': percentage,
-            'incorrect_questions': incorrect_questions
+            'incorrect_questions': [(question['Questions'], question['Correct answer'])
+                                    for question in questions
+                                    if request.POST.get(question['Questions']) != question['Correct answer']]
         })
 
-    return render(request, 'quiz/quiz.html', {'questions': questions})
+    return render(request, 'quiz/quiz.html', {
+        'question': questions[question_index],
+        'is_last_question': is_last_question,
+    })
+
 
 def quiz_detail(request, question_type):
     # Retrieve all questions for the selected quiz type
