@@ -64,46 +64,76 @@ def quiz_types(request):
 #     # Render the quiz template
 #     return render(request, 'quiz/quiz.html', {'questions': questions, 'quiz_type': quiz_type})
 
+# def display_quiz(request, t_id, quiz_type):
+#     questions = [row for row in quiz_data if row['T_ID'] == t_id and row['Type'] == quiz_type]
+
+#     if request.method == 'POST':
+#         score = 0
+#         incorrect_questions = []
+
+#         for question in questions:
+#             selected_answer = request.POST.get(question['Questions'])
+#             if selected_answer == question['Correct answer']:
+#                 score += 1
+#             else:
+#                 incorrect_questions.append({
+#                     'question': question['Questions'],
+#                     'selected': selected_answer,
+#                     'correct': question['Correct answer']
+#                 })
+
+#         return render(request, 'quiz/score.html', {
+#             'score': score,
+#             'total': len(questions),
+#             'incorrect_questions': incorrect_questions
+#         })
+        
+#         return render(request, 'quiz/score.html', {'score': score, 'total': total_questions})
+
+#     return render(request, 'quiz/quiz.html', {'questions': questions, 'quiz_type': quiz_type})
+
 def display_quiz(request, t_id, quiz_type):
+    print("Rendering quiz.html")
     questions = [row for row in quiz_data if row['T_ID'] == t_id and row['Type'] == quiz_type]
 
     if request.method == 'POST':
         score = 0
-        incorrect_questions = []
+        total_credits = 0
+        earned_credits = 0
 
         for question in questions:
+            total_credits += int(question.get('Credits', 0))  # Add total credits for all questions
             selected_answer = request.POST.get(question['Questions'])
             if selected_answer == question['Correct answer']:
                 score += 1
-            else:
-                incorrect_questions.append({
-                    'question': question['Questions'],
-                    'selected': selected_answer,
-                    'correct': question['Correct answer']
-                })
+                earned_credits += int(question.get('Credits', 0))  # Add credits for correctly answered questions
+
+        # Calculate the percentage of credits earned
+        percentage = (earned_credits / total_credits) * 100 if total_credits > 0 else 0
 
         return render(request, 'quiz/score.html', {
             'score': score,
             'total': len(questions),
-            'incorrect_questions': incorrect_questions
+            'percentage': percentage,
+            'incorrect_questions': [(question['Questions'], question['Correct answer'])
+                                    for question in questions
+                                    if request.POST.get(question['Questions']) != question['Correct answer']]
+            
         })
-        
         return render(request, 'quiz/score.html', {'score': score, 'total': total_questions})
 
-    return render(request, 'quiz/quiz.html', {'questions': questions, 'quiz_type': quiz_type})
-
-
+    return render(request, 'quiz/quiz.html', {'questions': questions})
 
 def quiz_detail(request, question_type):
     # Retrieve all questions for the selected quiz type
     questions = QuizQuestion.objects.filter(question_type=question_type)
     return render(request, 'quiz/quiz.html', {'questions': questions, 'quiz_type': question_type})
 
-# def quiz_types(request):
-#     types = [
-#         (1, 'Python'),
-#         (2, 'Java'),
-#         (3, 'JavaScript')
-#         # Add other types as needed
-#     ]
-#     return render(request, 'quiz/quiz_types.html', {'types': types})
+def quiz_types(request):
+    types = [
+        (1, 'Python'),
+        (2, 'Java'),
+        (3, 'JavaScript')
+        # Add other types as needed
+    ]
+    return render(request, 'quiz/quiz_types.html', {'types': types})

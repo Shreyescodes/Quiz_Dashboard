@@ -1,23 +1,8 @@
 {% comment %} <!DOCTYPE html>
 <html>
 <head>
-    <title>Your Score</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
-<body>
-    <h1> Scores: </h1>
-    <p>You answered {{ score }} out of {{ total }} questions correctly!</p> {% endcomment %}
-    {% comment %} <a href="{% url 'quiz:quiz_types' %}">Back to Quiz Types</a> {% endcomment %}
-    {% comment %} <a href="{% url 'quiz:quiz_types' %}" class="btn">Back to Quiz Types</a>
-
-</body>
-</html> {% endcomment %}
-
-{% comment %} <!DOCTYPE html>
-<html>
-<head>
     <title>Quiz Score</title>
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
@@ -39,8 +24,9 @@
     {% else %}
     <p>Well done! You answered all questions correctly.</p>
     {% endif %}
-</body>
-</html> {% endcomment %}
+    {% comment %} <a href="{% url 'quiz:quiz_types' %}" class="btn">Back to Quiz Types</a> {% endcomment %}
+{% comment %} </body>
+</html> {% endcomment %} 
 
 <!DOCTYPE html>
 <html>
@@ -51,23 +37,19 @@
 </head>
 <body>
     <h1>Your Score: {{ score }} / {{ total }}</h1>
+    <h2>Your Percentage: {{ percentage }}%</h2>
 
     {% if incorrect_questions %}
     <h2>Incorrectly Attempted Questions</h2>
     <div class="incorrect-questions-container" style="overflow: auto; max-height: 400px;">
         <ul>
-            {% for item in incorrect_questions %}
-            <li>
-                <strong>Question:</strong> {{ item.question }}<br>
-                <strong>Your Answer:</strong> {{ item.selected }}<br>
-                <strong>Correct Answer:</strong> {{ item.correct }}
-            </li>
+            {% for question, correct_answer in incorrect_questions %}
+            <li><strong>Question:</strong> {{ question }}<br><strong>Correct Answer:</strong> {{ correct_answer }}</li>
             {% endfor %}
         </ul>
     </div>
-    {% else %}
-    <p>Well done! You answered all questions correctly.</p>
     {% endif %}
+
     {% comment %} <a href="{% url 'quiz:quiz_types' %}" class="btn">Back to Quiz Types</a> {% endcomment %}
 </body>
 </html>
