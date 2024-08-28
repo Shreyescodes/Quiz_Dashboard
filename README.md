@@ -71,14 +71,17 @@ python manage.py runserver
 
 Open your browser and navigate to http://127.0.0.1:8000.
 
-Usage
+## Usage:
+
 Upload Quiz Questions: Navigate to the upload page and upload a CSV file containing your quiz questions.
 Select Quiz Type: Choose from the available quiz types.
 Attempt the Quiz: Navigate through the questions, and your progress will be displayed at the top.
 View Your Score: Once you've completed the quiz, view your score along with the incorrectly answered questions.
 
-Contributing
+## Contributing:
+
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-License
+## License:
+
 This project is licensed under the MIT License - see the LICENSE file for details.
