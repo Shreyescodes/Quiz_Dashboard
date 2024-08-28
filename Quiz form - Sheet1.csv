@@ -6,7 +6,7 @@ T_ID,Type,Questions,Option1,Option2,Option3,Option4,Correct Answer,Credits
 1,Python,What are the two main types of functions in Python?,System function,Custom function,Built-in function & User defined function,User function,Built-in function & User defined function,2
 1,Python,Which of the following loops is present in Python?,foreach,append(),pythonpythonpython,while,while,2
 1,Python,Which method is used to add an element to a list in Python?,add(),append(),insert(),extend(),append(),1
-1,Python,What will be the output of 3 * 'python'?,python,3,pythonpythonpython (Correct),Error,pythonpythonpython,2
+1,Python,What will be the output of 3 * 'python'?,python,3,pythonpythonpython,Error,pythonpythonpython,2
 1,Python,How do you start a comment in Python?,/*,<!--,# ,//,#,1
 1,Python,What is the correct file extension for Python files?,.py,.python,.pyth,.py,.py,2
 1,Python,Which of the following keywords is used to define a class in Python?,object,define,class ,module,class,2
