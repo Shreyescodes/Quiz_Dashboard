@@ -1,4 +1,4 @@
-T_ID,Type,Questions,Option1,Option2,Option3,Option4,Correct Answer,Credits
+T_ID,Type,Questions,Option1,Option2,Option3,Option4,Correct answer,Credits
 1,Python,Which type of Programming does Python support?,object-oriented programming,structured programming,functional programming,all of the mentioned,all of the mentioned,2
 1,Python,Is Python code compiled or interpreted?,Python code is both compiled and interpreter,Python code is neither compiled nor interpreted,Python code is only compiled,Python code is only interpreted,Python code is both compiled and interpreted,1
 1,Python,What is the order of precedence in python?,"Exponential, Parentheses, Multiplication, Division, Addition, Subtraction","Exponential, Parentheses, Division, Multiplication, Addition, Subtraction","Parentheses, Exponential, Multiplication, Division, Subtraction, Addition","Parentheses, Exponential, Multiplication, Division, Addition, Subtraction","Parentheses, Exponential, Multiplication, Division, Addition, Subtraction",2
