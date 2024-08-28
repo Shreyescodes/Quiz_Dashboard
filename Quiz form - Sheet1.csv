@@ -23,7 +23,7 @@ T_ID,Type,Questions,Option1,Option2,Option3,Option4,Correct answer,Credits
 2,Java,Which of the following is not a primitive data type in Java?,int,float,String,char,String,2
 2,Java,What is the default value of a boolean variable in Java?,TRUE,FALSE,null,0,FALSE,5
 2,Java,Which of these keywords is used to define a class in Java?,class,struct,interface,package,class,1
-2,Java,How do you create an object of the class Dog in Java?,Dog d = new Dog();,Dog d = Dog();,Dog d = new Dog;,Dog d = Dog.new();,Dog d = new Dog();,
+2,Java,How do you create an object of the class Dog in Java?,Dog d = new Dog();,Dog d = Dog();,Dog d = new Dog;,Dog d = Dog.new();,Dog d = new Dog();,3
 2,Java,What is the size of an int data type in Java?,8 bits,16 bits,32 bits,64 bits,32 bits,3
 2,Java,Which of the following is not a keyword in Java?,static,void,private,string,string,1
 2,Java,What is the default value of a boolean variable?,TRUE,FALSE,null,0,FALSE,2
