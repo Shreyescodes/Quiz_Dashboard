@@ -29,6 +29,7 @@
 
 
 
+
 {% comment %} <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,6 +76,7 @@
         {% endif %}
     {% endfor %}
 </div>
+
 
     <!-- Current Question -->
     <form method="post">
@@ -127,6 +129,7 @@
     </div>
 
     <!-- Quiz Question -->
+     
     <form method="post">
         {% csrf_token %}
         <div>
@@ -143,6 +146,15 @@
         {% else %}
             <button type="submit">Next</button>
         {% endif %}
+        {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
     </form>
 </body>
 </html>
+
+

@@ -137,6 +137,8 @@ def quiz_types(request):
     types = set((row.get('T_ID'), row.get('Type')) for row in quiz_data)
     return render(request, 'quiz/quiz_types.html', {'types': types})
 
+from django.contrib import messages
+
 def display_quiz(request, t_id, quiz_type):
     global quiz_data
 
@@ -169,37 +171,42 @@ def display_quiz(request, t_id, quiz_type):
     if request.method == 'POST':
         # Handle answer submission
         selected_answer = request.POST.get(questions[question_index]['Questions'])
-        if selected_answer == questions[question_index]['Correct answer']:
-            score = request.session.get('score', 0)
-            score += 1
-            request.session['score'] = score
+
+        # If no option is selected, display an error message
+        if not selected_answer:
+            messages.error(request, "Please select an option before proceeding.")
         else:
-            incorrect_questions.append((questions[question_index]['Questions'], questions[question_index]['Correct answer']))
-            request.session['incorrect_questions'] = incorrect_questions
+            if selected_answer == questions[question_index]['Correct answer']:
+                score = request.session.get('score', 0)
+                score += 1
+                request.session['score'] = score
+            else:
+                incorrect_questions.append((questions[question_index]['Questions'], questions[question_index]['Correct answer']))
+                request.session['incorrect_questions'] = incorrect_questions
 
-        # If not the last question, increment the question index
-        if not is_last_question:
-            question_index += 1
-            request.session['question_index'] = question_index
-            return redirect('quiz:display_quiz', t_id=t_id, quiz_type=quiz_type)
+            # If not the last question, increment the question index
+            if not is_last_question:
+                question_index += 1
+                request.session['question_index'] = question_index
+                return redirect('quiz:display_quiz', t_id=t_id, quiz_type=quiz_type)
 
-        # If last question, show the score
-        score = request.session.get('score', 0)
-        total_credits = sum(int(question.get('Credits', 0)) for question in questions)
-        earned_credits = score * int(questions[0].get('Credits', 0))  # Credits per correct answer
-        percentage = (earned_credits / total_credits) * 100 if total_credits > 0 else 0
+            # If last question, show the score
+            score = request.session.get('score', 0)
+            total_credits = sum(int(question.get('Credits', 0)) for question in questions)
+            earned_credits = score * int(questions[0].get('Credits', 0))  # Credits per correct answer
+            percentage = (earned_credits / total_credits) * 100 if total_credits > 0 else 0
 
-        # Clear session variables after the quiz is completed
-        request.session['score'] = 0
-        request.session['question_index'] = None
-        request.session['incorrect_questions'] = []
+            # Clear session variables after the quiz is completed
+            request.session['score'] = 0
+            request.session['question_index'] = None
+            request.session['incorrect_questions'] = []
 
-        return render(request, 'quiz/score.html', {
-            'score': score,
-            'total': len(questions),
-            'percentage': percentage,
-            'incorrect_questions': incorrect_questions
-        })
+            return render(request, 'quiz/score.html', {
+                'score': score,
+                'total': len(questions),
+                'percentage': percentage,
+                'incorrect_questions': incorrect_questions
+            })
 
     # Render the current question
     return render(request, 'quiz/quiz.html', {
@@ -208,6 +215,7 @@ def display_quiz(request, t_id, quiz_type):
         'question_indices': range(len(questions)),  # For navigation
         'question_index': question_index,  # Current question index
     })
+
     
 def quiz_detail(request, question_type):
     # Retrieve all questions for the selected quiz type
@@ -222,3 +230,4 @@ def quiz_types(request):
         # Add other types as needed
     ]
     return render(request, 'quiz/quiz_types.html', {'types': types})
+
