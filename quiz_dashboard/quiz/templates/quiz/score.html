@@ -11,6 +11,7 @@
 
     {% if incorrect_questions %}
         <h2>Incorrectly Attempted Questions:</h2>
+        <div class="incorrect-questions-container" style="overflow: auto; max-height: 400px;">
         <ul>
             {% for question, correct_answer in incorrect_questions %}
                 <li><strong>Question:</strong> {{ question }}<br>
@@ -18,6 +19,8 @@
                 </li>
             {% endfor %}
         </ul>
+    </div>
+    
     {% else %}
         <p>Great job! All answers were correct.</p>
     {% endif %}
