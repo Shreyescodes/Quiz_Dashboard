@@ -1,0 +1,65 @@
+T_ID,Type,Questions,Option1,Option2,Option3,Option4,Correct Answer,Credits
+1,Python,Which type of Programming does Python support?,object-oriented programming,structured programming,functional programming,all of the mentioned,all of the mentioned,2
+1,Python,Is Python code compiled or interpreted?,Python code is both compiled and interpreter,Python code is neither compiled nor interpreted,Python code is only compiled,Python code is only interpreted,Python code is both compiled and interpreted,1
+1,Python,What is the order of precedence in python?,"Exponential, Parentheses, Multiplication, Division, Addition, Subtraction","Exponential, Parentheses, Division, Multiplication, Addition, Subtraction","Parentheses, Exponential, Multiplication, Division, Subtraction, Addition","Parentheses, Exponential, Multiplication, Division, Addition, Subtraction","Parentheses, Exponential, Multiplication, Division, Addition, Subtraction",2
+1,Python,Which of these is the definition for packages in Python?, A set of main modules,A folder of python modules,A number of files containing Python definitions and statements,A set of programs making use of Python modules,A folder of python modules,1
+1,Python,What are the two main types of functions in Python?,System function,Custom function,Built-in function & User defined function,User function,Built-in function & User defined function,2
+1,Python,Which of the following loops is present in Python?,foreach,append(),pythonpythonpython,foreach,while,2
+1,Python,Which method is used to add an element to a list in Python?,add(),do-while,insert(),extend(),append(),1
+1,Python,What will be the output of 3 * 'python'?,python,3,pythonpythonpython (Correct),Error,pythonpythonpython,2
+1,Python,How do you start a comment in Python?,/*,<!--,# ,//,#,1
+1,Python,What is the correct file extension for Python files?,.py,.python,.pyth,.py,.py,2
+1,Python,Which of the following keywords is used to define a class in Python?,object,define,class ,module,class,2
+1,Python,Which function is used to get input from the user in Python?,input(),scanf(),cin,read(),input(),1
+1,Python,What does the len() function do in Python?,Returns the length of a string,Returns the type of a variable,Converts a string to a list,Sorts a list,Returns the length of a string,2
+1,Python,What is the output of bool([]) in Python?,TRUE,FALSE,None,Error,FALSE,1
+1,Python,How do you convert an integer to a string in Python?,str(),int(),string(),toString(),str(),2
+1,Python,Which of the following is a valid variable name in Python?,2variable,variable@,_variable ,variable!,_variable,2
+1,Python,Which of the following is used to create an empty set in Python?,[],{},set(),None,set(),1
+1,Python,What is the output of 5 // 2 in Python?,2.5,2,3,5,2,2
+1,Python,Which keyword is used to handle exceptions in Python?,try,catch,throw,except,try,2
+1,Python,What is the purpose of the self keyword in Python class methods?,It refers to the current instance of the class.,It is used to create a new class.,It is a way to access global variables.,It is used to define a static method.,It refers to the current instance of the class.,3
+2,Java,What is the size of an int in Java?,8 bits,16 bits,32 bits,64 bits,64 bits,1
+2,Java,Which of the following is not a primitive data type in Java?,int,float,String,char,String,2
+2,Java,What is the default value of a boolean variable in Java?,TRUE,FALSE,null,0,FALSE,5
+2,Java,Which of these keywords is used to define a class in Java?,class,struct,interface,package,class,1
+2,Java,How do you create an object of the class Dog in Java?,Dog d = new Dog();,Dog d = Dog();,Dog d = new Dog;,Dog d = Dog.new();,Dog d = new Dog();,
+2,Java,What is the size of an int data type in Java?,8 bits,16 bits,32 bits,64 bits,32 bits,3
+2,Java,Which of the following is not a keyword in Java?,static,void,private,string,string,1
+2,Java,What is the default value of a boolean variable?,TRUE,FALSE,null,0,FALSE,2
+2,Java,Which method must be implemented by all threads in Java?,start(),run(),wait(),notify(),run(),5
+2,Java,"What will be the output of the following code? System.out.println(10 + 20 + ""Hello"");
+",30Hello,1020Hello,Hello30,Hello1020,30Hello,1
+2,Java,Which of the following is a marker interface in Java?,Serializable,Cloneable,Remote,All of the above,All of the above,3
+2,Java,What is the purpose of the final keyword in Java?,To create an immutable class,To prevent method overriding,To prevent inheritance,All of the above,All of the above,1
+2,Java,Which of these is not a feature of Java?,Object-oriented,Platform-independent,Secure,Pointers,Pointers,2
+2,Java,Which method is used to convert a string to a primitive float in Java?,Float.valueOf(),Float.parseFloat(),Float.toFloat(),Float.toString(),Float.parseFloat(),5
+2,Java,Which package is automatically imported into every Java program?,java.io,java.util,java.lang,java.math,java.lang,1
+2,Java,Which of the following is true about the finally block in Java?,It is always executed after the try block,It executes only if an exception is thrown,It is executed only if the exception is caught,It is executed only if no exception is thrown,It is always executed after the try block,3
+2,Java,Which class is the superclass of all exceptions in Java?,Object,Throwable,Exception,RuntimeException,Throwable,1
+2,Java,Which of the following methods is not part of the Object class in Java?,equals(),hashCode(),clone(),finalize(),clone(),2
+2,Java,Which keyword is used to inherit a class in Java?,implement,extends,inherits,super,extends,5
+2,Java,"What is the output of the following code? String s1 = ""Hello"";
+String s2 = ""Hello"";
+System.out.println(s1 == s2);
+",TRUE,FALSE,null,Compile-time error,TRUE,1
+3,Javascript,Which method is used to add a new item to the end of an array and return the new length of the array?,push(),concat(),slice(),splice(),push(),2
+3,Javascript,Which of the following is the correct way to declare a variable in JavaScript?,variable x = 5;,var x = 5;,int x = 5;,x = 5;,var x = 5;,1
+3,Javascript,"What is the output of the following code? : console.log(typeof ""Hello"");",string,text,char,object,string,2
+3,Javascript,Which of the following is true about JavaScript closures?,They allow a function to access variables from another function.,They create a new variable scope inside a function.,They are used to automatically bind this to a function.,They are used to return the arguments passed to a function.,They allow a function to access variables from another function.,4
+3,Javascript,What is the result of typeof null in JavaScript?,"""null""","""object""","""undefined""","""string""","""object""",2
+3,Javascript,What does NaN stand for in JavaScript?,Not a Number,Number as Number,NaN,Undefined Value,Not a Number,1
+3,Javascript,Which of the following is a valid way to declare a variable in JavaScript?,var x = 5;,let x;,const x = 5;,let x = 5;,var x = 5;,2
+3,Javascript,What is the output of console.log(typeof null)?,"""object""","""null""","""undefined""","""function""","""object""",4
+3,Javascript,Which method is used to convert a JSON string into a JavaScript object?,JSON.parse(),JSON.stringify(),JSON.toObject(),JSON.convert(),JSON.parse(),2
+3,Javascript,How do you create a function in JavaScript?,function myFunction() {},function: myFunction() {},function myFunction() {} (),myFunction() = function() {},function myFunction() {},2
+3,Javascript,What is the correct syntax for a for loop in JavaScript?,for (var i = 0; i < 5; i++) {},for i = 0 to 5 {},for (i in array) {},for (var i = 0; i < 5; i++) console.log(i);,for (var i = 0; i < 5; i++) {},1
+3,Javascript,What will be the result of 5 == '5' in JavaScript?,TRUE,FALSE,NaN,TypeError,TRUE,2
+3,Javascript,What is the purpose of the bind() method in JavaScript?,"it creates a new function that, when called, has its this keyword set to the provided value.",It allows you to combine multiple functions into one.,it automatically executes a function after a specified delay.,It converts a function to a string representation.,It converts a function to a string representation.,4
+3,Javascript,How do you write an inline comment in JavaScript?,// This is a comment,/* This is a comment */,This is a comment,// This is comment,// This is a comment,2
+3,Javascript,What is the purpose of the this keyword in JavaScript?,It refers to the current object,It refers to the parent object,It refers to the global object,It refers to the function context,It refers to the current object,2
+3,Javascript,What does Array.isArray([]) return?,TRUE,FALSE,undefined,0,TRUE,1
+3,Javascript,How can you prevent a default action in an event?,event.preventDefault(),return false;,e.preventDefault(),event.stopPropagation(),event.preventDefault(),2
+3,Javascript,Which of the following is a JavaScript framework?,Angular,React,Vue,jQuery,Angular,4
+3,Javascript,What is the output of 0.1 + 0.2 === 0.3?,FALSE,TRUE,TRUE,FALSE,FALSE,2
+3,Javascript,How do you define an object in JavaScript?,var obj = {};,var obj = new Object();,var obj = Object.create(null);,var obj = new Object;,var obj = {};,2
