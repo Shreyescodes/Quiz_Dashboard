@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+ {% comment %} <!DOCTYPE html>
 <html>
 <head>
     <title>Quiz Score</title>
@@ -7,10 +7,10 @@
 </head>
 <body>
     <h1>Your Score: {{ score }} / {{ total }}</h1>
-    <h3>Percentage: {{ percentage }}%</h3>
+    <h2>Percentage: {{ percentage }}%</h2>
 
     {% if incorrect_questions %}
-        <h2>Incorrectly Attempted Questions:</h2>
+        <h3>Incorrectly Attempted Questions:</h3>
         <ul>
             {% for question, correct_answer in incorrect_questions %}
                 <li><strong>Question:</strong> {{ question }}<br>
@@ -24,4 +24,36 @@
 
     <a href="{% url 'quiz:quiz_types' %}" class="btn">Back to Quiz Types</a>
 </body>
-</html> 
+</html>  {% endcomment %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Score</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+<div class="container score-container">
+    <h1>Your Score: {{ score }} / {{ total }}</h1>
+    <h2>Percentage: {{ percentage }}%</h2>
+
+    {% if incorrect_questions %}
+        <h3>Incorrectly Attempted Questions:</h3>
+        <ul>
+            {% for question, correct_answer in incorrect_questions %}
+                <li><strong>Question:</strong> {{ question }}<br>
+                    <strong>Correct Answer:</strong> {{ correct_answer }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Great job! All answers were correct.</p>
+    {% endif %}
+
+    <a href="{% url 'quiz:quiz_types' %}" class="btn">Back to Quiz Types</a>
+</div>
+
+</body>
+</html>

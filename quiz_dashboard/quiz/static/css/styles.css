@@ -1,131 +1,66 @@
-/* styles.css */
-/*
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
+    color: #333;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 h1, h2, h3 {
-    color: #333;
+    color: #2b7a78; /* Green shade for headings */
+    margin: 0;
+    padding: 20px;
+    text-align: left; /* Align headings to the top left */
 }
 
 .container {
-    width: 80%;
-    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 10px;
     padding: 20px;
-    background: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
 }
 
-.form-group {
+/* Navbar Styles */
+.question-navigation {
+    display: flex;
+    overflow-x: auto;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    background-color: #def2f1;
+    border-bottom: 2px solid #2b7a78;
+}
+
+.question-navigation div {
+    flex: 0 0 auto;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.question-navigation .active {
+    font-weight: bold;
+    color: #17252a; /* Darker shade for active question */
+    border-bottom: 2px solid #2b7a78;
+}
+
+/* Quiz Question Styles */
+.question-options h3 {
     margin-bottom: 15px;
 }
 
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-input[type="text"], input[type="email"], input[type="password"], textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-.quiz-question {
-    margin-bottom: 20px;
-}
-
-.quiz-option {
-    display: block;
-    margin-bottom: 10px;
-}
-
-.quiz-option input {
-    margin-right: 10px;
-}
-
-.score {
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
-/* Add this to styles.css */
-
-.btn {
-    display: inline-block;
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.btn:hover {
-    background-color: #45a049;
-}
-
-/* General Styles */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    margin: 0;
+.question-options ul {
+    list-style: none;
     padding: 0;
 }
 
-h1, h2, h3 {
-    color: #4CAF50;
-}
-
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-/* Form Styles */
-form {
-    max-width: 600px;
-    margin: 20px auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-form h3 {
-    font-size: 20px;
+.question-options li {
     margin-bottom: 10px;
 }
 
@@ -133,83 +68,119 @@ input[type="radio"] {
     margin-right: 10px;
 }
 
-/* List Styles */
-ul {
+/* Button Styles */
+button {
+    background-color: #2b7a78;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #17252a;
+}
+
+/* Message Styles */
+.messages {
+    list-style: none;
+    padding: 10px;
+    margin: 20px 0;
+    background-color: #ffdddd;
+    border-left: 6px solid #f44336;
+}
+
+.messages li {
+    margin-bottom: 10px;
+}
+
+.messages li.error {
+    color: red;
+}
+
+.messages li.success {
+    color: green;
+}
+
+/* Improved Styling for Quiz Types */
+.type-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.type-container ul {
     list-style-type: none;
     padding: 0;
+    display: inline-block; /* Center the list */
 }
 
-li {
-    margin-bottom: 10px;
-    background-color: #f9f9f9;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-li a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
-}
-
-li a:hover {
-    color: #4CAF50;
-}
-
-/* Additional Styles for Specific Pages */
-#quiz-container {
-    margin: 20px auto;
-    max-width: 800px;
-}
-
-#quiz-container h1 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-#quiz-container form div {
-    margin-bottom: 20px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    form {
-        padding: 15px;
-    }
-
-    button {
-        width: 100%;
-        font-size: 14px;
-        padding: 10px;
-    }
-
-    li {
-        padding: 15px;
-        font-size: 14px;
-    }
-}
-
-.question-navigation {
-    display: flex;
-    overflow-x: auto;
-    white-space: nowrap;
-    padding: 10px;
-    background-color: #f4f4f4;
-    margin-bottom: 20px;
-    }
-
-.question-navigation div {
-    flex: 0 0 auto;
-    padding: 10px 15px;
-    margin-right: 10px;
-    background-color: #ddd;
-    border-radius: 5px;
+.type-container li {
+    background-color: #2b7a78; /* Green background for list items */
+    color: #ffffff; /* White text color */
+    padding: 15px 20px;
+    margin: 10px 0;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.2s;
     cursor: pointer;
-    text-align: center;
-    }
+}
 
-.question-navigation div.active {
-    background-color: #4caf50; /* Highlight color for the current question */
+.type-container li:hover {
+    background-color: #17252a; /* Darker green on hover */
+    transform: translateY(-3px); /* Slight lift effect on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.type-container a {
+    text-decoration: none;
+    color: #ffffff; /* Ensure text color remains white */
+    display: block; /* Make the entire list item clickable */
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 20px;
+    background-color: #2b7a78;
     color: white;
-    }
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #17252a;
+}
+
+/* Dashboard Page Styles */
+.upload-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    text-align: center;
+}
+
+.upload-container form {
+    margin-top: 20px;
+}
+
+.upload-container button {
+    background-color: #2b7a78;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.upload-container button:hover {
+    background-color: #17252a;
+}
