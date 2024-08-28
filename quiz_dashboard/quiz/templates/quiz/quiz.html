@@ -37,13 +37,83 @@
         {% else %}
             <button type="submit">Next</button>
         {% endif %}
-        {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
+    </form>
+</body>
+</html> {% endcomment %}
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ quiz_type }} Quiz</title>
+    <style>
+        .question-nav a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+        }
+        .question-nav a.active {
+            background-color: #4285f4;
+            color: white;
+        }
+        .question-nav a.disabled {
+            color: gray;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ quiz_type }} Quiz</h1>
+
+    {% load custom_filters %}
+
+<!-- Question Navigation -->
+<div class="question-nav">
+    {% for i in question_indices %}
+        {% if i != current_index and i not in attempted_indices %}
+            <a href="?question={{ i }}" class="{% if i == current_index %}active{% endif %}">
+                Question {{ i|add:1 }}
+            </a>
+        {% elif i == current_index %}
+            <a href="?question={{ i }}" class="active">
+                Question {{ i|add:1 }}
+            </a>
+        {% else %}
+            <a class="disabled">
+                Question {{ i|add:1 }}
+            </a>
+        {% endif %}
+    {% endfor %}
+</div>
+
+    <!-- Current Question -->
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <h3>{{ current_question.Questions }}</h3>
+            <ul>
+                {% for option in current_question.Options %}
+                    <li>
+                        <label>
+                            <input type="radio" name="answer" value="{{ option }}" {% if option == user_answer %}checked{% endif %}>
+                            {{ option }}
+                        </label>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div>
+            {% if is_last_question %}
+                <button type="submit">Submit</button>
+            {% else %}
+                <button type="submit">Next</button>
+            {% endif %}
+        </div>
     </form>
 </body>
 </html> {% endcomment %}
@@ -70,6 +140,7 @@
     </div>
 
     <!-- Quiz Question -->
+     
     <form method="post">
         {% csrf_token %}
         <div class="question-options">
@@ -86,15 +157,10 @@
         {% else %}
             <button type="submit">Next</button>
         {% endif %}
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
     </form>
 </div>
 
 </body>
 </html>
+
+
