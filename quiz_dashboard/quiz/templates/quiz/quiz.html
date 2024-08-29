@@ -1,45 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ question.Type }} Quiz</title>
+    <title>{{ question }} Quiz</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
 
 <div class="container">
-    <h1>{{ question.Type }} Quiz</h1>
-
-    
-
-    <!-- Navigation bar for questions -->
-    <div class="question-navigation">
-        {% for index in question_indices %}
-            <div class="{% if index == question_index %}active{% endif %}">
-                Question {{ index|add:"1" }}
-            </div>
-        {% endfor %}
-    </div>
 
     <!-- Quiz Question -->
     <form method="post">
         {% csrf_token %}
         <div class="question-options">
-            <h3>{{ question.Questions }}</h3>
+            <h3>{{ question }}</h3>
             <ul>
-                <li><input type="radio" name="{{ question.Questions }}" value="{{ question.Option1 }}"> A. {{ question.Option1 }}</li>
-                <li><input type="radio" name="{{ question.Questions }}" value="{{ question.Option2 }}"> B. {{ question.Option2 }}</li>
-                <li><input type="radio" name="{{ question.Questions }}" value="{{ question.Option3 }}"> C. {{ question.Option3 }}</li>
-                <li><input type="radio" name="{{ question.Questions }}" value="{{ question.Option4 }}"> D. {{ question.Option4 }}</li>
+                <li><input type="radio" name="answer" value="{{ options.0 }}"> A. {{ options.0 }}</li>
+                <li><input type="radio" name="answer" value="{{ options.1 }}"> B. {{ options.1 }}</li>
+                <li><input type="radio" name="answer" value="{{ options.2 }}"> C. {{ options.2 }}</li>
+                <li><input type="radio" name="answer" value="{{ options.3 }}"> D. {{ options.3 }}</li>
             </ul>
         </div>
         <!-- Display messages -->
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li class="{{ message.tags }}">{{ message }}</li>
-        {% endfor %}
-    </ul>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
         {% endif %}
         {% if is_last_question %}
             <button type="submit">Submit</button>
