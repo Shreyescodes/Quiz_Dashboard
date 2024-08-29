@@ -1,7 +1,8 @@
+import random
 import csv
 from django.shortcuts import render, redirect
 from .forms import UploadFileForm
-from .models import QuizQuestion
+from django.contrib import messages
 
 # Global variable to hold quiz data
 quiz_data = []
@@ -24,88 +25,90 @@ def quiz_types(request):
     types = set((row.get('T_ID'), row.get('Type')) for row in quiz_data)
     return render(request, 'quiz/quiz_types.html', {'types': types})
 
-from django.contrib import messages
 
 def display_quiz(request, t_id, quiz_type):
     global quiz_data
 
     # Retrieve the quiz questions based on T_ID and Type
-    questions = [row for row in quiz_data if row['T_ID'] == t_id and row['Type'] == quiz_type]
+    questions = []
+    options = []
+    correct_options = []
+
+    for row in quiz_data:
+        if row['T_ID'] == t_id and row['Type'] == quiz_type:
+            questions.append(row['Questions'])
+            options.append([row['Option1'], row['Option2'], row['Option3'], row['Option4']])
+            correct_options.append(row['Correct answer'])
 
     # Check if there are any questions for the quiz type and T_ID
     if not questions:
-        return render(request, 'quiz/no_questions.html')  # Create a template to handle no questions scenario
+        return render(request, 'quiz/no_questions.html')
 
-    # Initialize session data at the start of a new quiz
-    if request.session.get('question_index') is None:
+    # Reset the quiz if the session data is inconsistent
+    if ('shuffled_indices' not in request.session or
+        len(request.session['shuffled_indices']) != len(questions) or
+        request.session.get('question_index', 0) >= len(questions)):
+        request.session['shuffled_indices'] = list(range(len(questions)))
+        random.shuffle(request.session['shuffled_indices'])
         request.session['question_index'] = 0
         request.session['score'] = 0
         request.session['incorrect_questions'] = []
 
-    # Get the current question index
-    question_index = request.session.get('question_index', 0)
-
-    # Ensure question_index is within valid range
-    if question_index < 0 or question_index >= len(questions):
-        question_index = 0
-        request.session['question_index'] = question_index
-
-    incorrect_questions = request.session.get('incorrect_questions', [])
+    shuffled_indices = request.session['shuffled_indices']
+    question_index = request.session['question_index']
 
     # Check if it's the last question
     is_last_question = (question_index == len(questions) - 1)
 
     if request.method == 'POST':
         # Handle answer submission
-        selected_answer = request.POST.get(questions[question_index]['Questions'])
+        selected_answer = request.POST.get('answer')
 
-        # If no option is selected, display an error message
         if not selected_answer:
             messages.error(request, "Please select an option before proceeding.")
         else:
-            if selected_answer == questions[question_index]['Correct answer']:
-                score = request.session.get('score', 0)
-                score += 1
-                request.session['score'] = score
+            current_question_index = shuffled_indices[question_index]
+            if selected_answer == correct_options[current_question_index]:
+                request.session['score'] = request.session.get('score', 0) + 1
             else:
-                incorrect_questions.append((questions[question_index]['Questions'], questions[question_index]['Correct answer']))
+                incorrect_questions = request.session.get('incorrect_questions', [])
+                incorrect_questions.append((questions[current_question_index], correct_options[current_question_index]))
                 request.session['incorrect_questions'] = incorrect_questions
 
-            # If not the last question, increment the question index
             if not is_last_question:
-                question_index += 1
-                request.session['question_index'] = question_index
-                return redirect('quiz:display_quiz', t_id=t_id, quiz_type=quiz_type)
+                request.session['question_index'] = question_index + 1
+            else:
+                # Show the score
+                score = request.session.get('score', 0)
+                total_questions = len(questions)
+                percentage = (score / total_questions) * 100 if total_questions > 0 else 0
 
-            # If last question, show the score
-            score = request.session.get('score', 0)
-            total_credits = sum(int(question.get('Credits', 0)) for question in questions)
-            earned_credits = score * int(questions[0].get('Credits', 0))  # Credits per correct answer
-            percentage = (earned_credits / total_credits) * 100 if total_credits > 0 else 0
+                # Clear session variables
+                for key in ['score', 'question_index', 'incorrect_questions', 'shuffled_indices']:
+                    request.session.pop(key, None)
 
-            # Clear session variables after the quiz is completed
-            request.session['score'] = 0
-            request.session['question_index'] = None
-            request.session['incorrect_questions'] = []
+                return render(request, 'quiz/score.html', {
+                    'score': score,
+                    'total': total_questions,
+                    'percentage': percentage,
+                    'incorrect_questions': request.session.get('incorrect_questions', [])
+                })
 
-            return render(request, 'quiz/score.html', {
-                'score': score,
-                'total': len(questions),
-                'percentage': percentage,
-                'incorrect_questions': incorrect_questions
-            })
+            return redirect('quiz:display_quiz', t_id=t_id, quiz_type=quiz_type)
 
     # Render the current question
+    current_question_index = shuffled_indices[question_index]
+    
     return render(request, 'quiz/quiz.html', {
-        'question': questions[question_index],
+        'question': f"{question_index + 1}. {questions[current_question_index]}",
+        'options': options[current_question_index],
         'is_last_question': is_last_question,
-        'question_indices': range(len(questions)),  # For navigation
-        'question_index': question_index,  # Current question index
+        'total_questions': len(questions),
+        'current_question_number': question_index + 1,
+        'quiz_type': quiz_type,
     })
-
     
 def quiz_detail(request, question_type):
-    # Retrieve all questions for the selected quiz type
     questions = QuizQuestion.objects.filter(question_type=question_type)
     return render(request, 'quiz/quiz.html', {'questions': questions, 'quiz_type': question_type})
 
