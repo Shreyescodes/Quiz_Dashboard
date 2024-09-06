@@ -72,7 +72,11 @@ def display_quiz(request, t_id, quiz_type):
                 request.session['score'] = request.session.get('score', 0) + 1
             else:
                 incorrect_questions = request.session.get('incorrect_questions', [])
-                incorrect_questions.append((questions[current_question_index], correct_options[current_question_index]))
+                incorrect_questions.append({
+                    'question': questions[current_question_index],
+                    'correct_answer': correct_options[current_question_index],
+                    'user_answer': selected_answer
+                })
                 request.session['incorrect_questions'] = incorrect_questions
 
             if not is_last_question:
@@ -83,6 +87,8 @@ def display_quiz(request, t_id, quiz_type):
                 total_questions = len(questions)
                 percentage = (score / total_questions) * 100 if total_questions > 0 else 0
 
+                incorrect_questions = request.session.get('incorrect_questions', [])
+
                 # Clear session variables
                 for key in ['score', 'question_index', 'incorrect_questions', 'shuffled_indices']:
                     request.session.pop(key, None)
@@ -91,7 +97,7 @@ def display_quiz(request, t_id, quiz_type):
                     'score': score,
                     'total': total_questions,
                     'percentage': percentage,
-                    'incorrect_questions': request.session.get('incorrect_questions', [])
+                    'incorrect_questions': incorrect_questions
                 })
 
             return redirect('quiz:display_quiz', t_id=t_id, quiz_type=quiz_type)
