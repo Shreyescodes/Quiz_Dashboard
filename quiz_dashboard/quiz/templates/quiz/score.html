@@ -7,20 +7,21 @@
 </head>
 <body>
 
-<div class="container score-container">
-    <h1>Your Score: {{ score }} / {{ total }}</h1>
-    <h2>Percentage: {{ percentage }}%</h2>
+<div class="container">
+    <h2>Quiz Results</h2>
+    <p>Your score: {{ score }} out of {{ total }}</p>
+    <p>Percentage: {{ percentage|floatformat:2 }}%</p>
 
-    {% if score == total %}
-        <p>Great job! All answers were correct.</p>
-    {% elif incorrect_questions %}
-        <h3>Incorrectly Attempted Questions:</h3>
+    {% if incorrect_questions %}
+        <h3>Incorrect Answers:</h3>
         <ul>
-            {% for question, correct_answer in incorrect_questions %}
-                <li><strong>Question:</strong> {{ question }}<br>
-                    <strong>Correct Answer:</strong> {{ correct_answer }}
-                </li>
-            {% endfor %}
+        {% for item in incorrect_questions %}
+            <li>
+                <strong>Question:</strong> {{ item.question }}<br>
+                <strong>Your answer:</strong> {{ item.user_answer }}<br>
+                <strong>Correct answer:</strong> {{ item.correct_answer }}
+            </li>
+        {% endfor %}
         </ul>
     {% endif %}
 
